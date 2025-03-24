@@ -26,6 +26,14 @@ export function updateDino(delta, veloEscala) {
     lidarPulo(delta)
 }
 
+export function getDinoRect() {
+  return dinoElem.getBoundingClientRect()
+}
+
+export function setDinoDerrota() {
+  dinoElem.src = "images/dino-lose.png"
+}
+
 function lidarCorrer(delta, veloEscala) {
   if (estaPulando) {
     dinoElem.src = "images/dino-stationary.png"

@@ -35,6 +35,12 @@ export function updateCactus(delta, veloEscala) {
     proximoTempoCactus -= delta
 }
 
+export function getCactusRects() {
+  return [...document.querySelectorAll("[data-cactus]")].map(cactus => {
+    return cactus.getBoundingClientRect()
+  })
+}
+
 function criarCactus() {
   const cactus = document.createElement("img")
   cactus.classList.add("cactus")

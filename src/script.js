@@ -1,6 +1,6 @@
 import { updateChao, setUpChao } from "./chao.js"
-import { updateDino, setUpDino } from "./dino.js"
-import { updateCactus, setUpCactus } from "./cactus.js"
+import { updateDino, setUpDino, getDinoRect, setDinoDerrota } from "./dino.js"
+import { updateCactus, setUpCactus, getCactusRects } from "./cactus.js"
 
 const MUNDO_WIDTH = 100
 const MUNDO_HEIGHT = 20
@@ -30,9 +30,22 @@ function update(tempo){
   updateCactus(delta, veloEscala)
   updateVeloEscala(delta)
   updatePlacar(delta)
+  
+  if(checarDerrota()) {
+  return lidarDerrota()
+  }
 
   ultimoTempo = tempo
 window.requestAnimationFrame(update)
+}
+
+function checarDerrota() {
+  const dinoRect = getDinoRect()
+  return getCactusRects().some(react => colissao(react, dinoRect))
+}
+
+function colissao(rect1, rect2) {
+  return rect1.left < rect2.right && rect1.right > rect2.left && rect1.top < rect2.bottom && rect1.bottom > rect2.top
 }
 
 function updateVeloEscala(delta) {
@@ -53,6 +66,14 @@ function lidarStart() {
  setUpCactus()
  telaInicioElem.classList.add("esconde")
  window.requestAnimationFrame(update)
+}
+
+function lidarDerrota() {
+  setDinoDerrota()
+  setTimeout(() => {
+    document.addEventListener("keydown", lidarStart, { once: true })
+    telaInicioElem.classList.remove("esconde")
+  }, 100);
 }
 
 function setPixelToWorldScale() {
