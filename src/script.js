@@ -1,5 +1,6 @@
 import { updateChao, setUpChao } from "./chao.js"
 import { updateDino, setUpDino } from "./dino.js"
+import { updateCactus, setUpCactus } from "./cactus.js"
 
 const MUNDO_WIDTH = 100
 const MUNDO_HEIGHT = 20
@@ -26,6 +27,7 @@ function update(tempo){
   const delta  = tempo - ultimoTempo
   updateChao(delta, veloEscala)
   updateDino(delta, veloEscala)
+  updateCactus(delta, veloEscala)
   updateVeloEscala(delta)
   updatePlacar(delta)
 
@@ -48,6 +50,7 @@ function lidarStart() {
  placar = 0
  setUpChao()
  setUpDino()
+ setUpCactus()
  telaInicioElem.classList.add("esconde")
  window.requestAnimationFrame(update)
 }
